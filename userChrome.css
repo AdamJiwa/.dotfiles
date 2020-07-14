@@ -1,0 +1,70 @@
+/*
+ * Auto-hide the URL-bar show on hover or focus
+ * as seen in https://www.reddit.com/r/FirefoxCSS/comments/boetx7/annoying_page_jump_with_address_bar_autohide/engne27/
+ * by https://www.reddit.com/user/SkyrimForTheDragons/
+ *
+ * slightly modified for more responsiveness
+ * 
+ * Note that this version DOES NOT hide the bookmarks toolbar!
+ */
+#nav-bar:not([customizing="true"]):not([inFullscreen]) {
+	min-height: 0px !important;
+	max-height: 0px !important;
+	margin-top: 0px !important;
+	margin-bottom: -1px !important;
+	transition: all 50ms linear 0s !important;
+	z-index: -5 !important;
+}
+
+#navigator-toolbox:hover:not([inFullscreen]) :-moz-any(#nav-bar),
+#navigator-toolbox:focus-within :-moz-any(#nav-bar) {
+	min-height: 32px !important;
+	max-height: 32px !important;
+	margin-top: 1px !important;
+	margin-bottom: -32px !important;
+	transition: all 50ms linear 0s !important;
+	z-index: 5 !important;
+}
+
+/* Needed for for FF 75 megabar */
+#urlbar {
+	--urlbar-toolbar-height: 32px !important;
+}
+
+#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox {
+	min-height: 0 !important;
+}
+
+/* Thanks to @Speravir for making it work again in the latest versions. */
+#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] {
+	visibility: collapse;
+}
+
+/* I don't use tabs so I just hide the new tab button. You should be able to use a similar trick as the rule above with
+css siblings selectors if you want to keep it when the tab bar is visible. */
+#tabbrowser-tabs .tabs-newtab-button { 
+	visibility: collapse !important;
+}
+
+#tabbrowser-tabs tab {
+	min-height: var(--tab-min-height)
+}
+
+/* Hide solo tab */
+#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] {
+    visibility: collapse;
+}
+
+/* Hide New Tab Button immediately next to solo tab */
+#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] + toolbarbutton {
+    visibility: collapse;
+}
+
+.titlebar-spacer {
+    display: none;
+}
+
+#nav-bar {
+	box-shadow: none !important 
+}
+
