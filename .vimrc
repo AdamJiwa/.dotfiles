@@ -14,12 +14,15 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
+set splitright
+set splitbelow
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'adamjiwa/vim-todo'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'gruvbox-community/gruvbox'
 Plug 'jremmen/vim-ripgrep'
@@ -45,6 +48,17 @@ if executable('rg')
 endif
 
 let mapleader = " "
+
+noremap <leader>tt :call TodaysTodo()<CR>
+noremap <leader>tT :call TomorrowsTodo()<CR>
+noremap <leader>ty :call YesterdaysTodo()<CR>
+noremap <leader>tg :call GlobalTodo()<CR>
+
+" find a way to move to the top off the buffer after this
+nnoremap <leader>mm :vnew \| 0read ! wsl man -P cat<SPACE>
+nnoremap <leader>mw :vnew \| 0read ! wsl man -P cat <C-R>=expand("<cword>")<CR><CR>gg
+
+nnoremap <leader>sw :! "/Program Files/Mozilla Firefox/firefox.exe" --search <C-R>=expand("<cword>")<CR><CR>
 
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
