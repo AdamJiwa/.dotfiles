@@ -1,0 +1,4 @@
+# fix for vim firefox theme issue
+.vimvixen-console-frame {
+    color-scheme: light !important;
+}
