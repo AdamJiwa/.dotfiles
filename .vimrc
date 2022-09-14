@@ -62,7 +62,6 @@ nnoremap <leader>mw :vnew \| 0read ! wsl man -P cat <C-R>=expand("<cword>")<CR><
 
 nnoremap <leader>sw :! "/Program Files/Mozilla Firefox/firefox.exe" --search <C-R>=expand("<cword>")<CR><CR>
 
-nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>phw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>h :wincmd h<CR>
@@ -72,6 +71,10 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndoTreeShow<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>ps :Rg<SPACE>
+" Add a command that adds the path of the buffer to the rg to search from cwd
+" and deeper
+"command! cwdRg execute Rg
+"nnoremap <leader>psc :Rg <C-R>=expand("%:p:h")<CR><SPACE>
 nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>pf :Files<CR>
 "nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
@@ -83,19 +86,6 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-inoremap <silent><expr> <C-space> coc#refresh()
-
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
-nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
-nnoremap <leader>cr: CocRestart
-
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nmap <leader>gs :G<CR>
