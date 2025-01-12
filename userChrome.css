@@ -1,5 +1,5 @@
 #navigator-toolbox {
-	border-bottom: 0px;
+	border-bottom: 0px !important;
 }
 
 #nav-bar:not([customizing="true"]):not([inFullscreen]) {
