@@ -62,7 +62,7 @@ nnoremap <leader>mw :vnew \| 0read ! wsl man -P cat <C-R>=expand("<cword>")<CR><
 
 nnoremap <leader>sw :! "/Program Files/Mozilla Firefox/firefox.exe" --search <C-R>=expand("<cword>")<CR><CR>
 
-nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>ss :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>phw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -70,6 +70,8 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndoTreeShow<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <leader>pn :wincmd v<bar> :e ~/notes <bar> :vertical resize 30<CR>
+nnoremap <leader>pw :wincmd v<bar> :e ~/workNotes <bar> :vertical resize 30<CR>
 nnoremap <leader>ps :Rg<SPACE>
 " Add a command that adds the path of the buffer to the rg to search from cwd
 " and deeper
@@ -79,7 +81,9 @@ nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>pf :Files<CR>
 "nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>+ :vertical resize +5<CR>
+nnoremap <leader>= :horizontal resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
+nnoremap <leader>_ :horizontal resize -5<CR>
 nnoremap <leader>rp :resize 100<CR>
 "nnoremap <leader>ee oif err != nil {<CR>log.Fatalf("%+\n", err)<CR>}<CR><esc>kkI<esc>
 vnoremap J :m '>+1<CR>gv=gv
@@ -122,8 +126,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
