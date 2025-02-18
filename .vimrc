@@ -96,10 +96,8 @@ nmap <leader>gs :G<CR>
 
 
 lua << EOF
-require'lspconfig'.clangd.setup{}
 local nvim_lsp = require('lspconfig')
 vim.lsp.set_log_level("debug")
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -135,13 +133,42 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'clangd' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+-- local servers = { 'clangd' }
+-- for _, lsp in ipairs(servers) do
+--   nvim_lsp[lsp].setup {
+--     on_attach = on_attach,
+--     flags = {
+--       debounce_text_changes = 150,
+--     }
+--   }
+-- end
+
+local esp_idf_path = os.getenv("IDF_PATH")
+local idf_tools_path = os.getenv("IDF_TOOLS_PATH")
+if esp_idf_path then
+  -- for esp-idf
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  require'lspconfig'.clangd.setup{
+    -- handlers = handlers,
+    -- capabilities = capabilities,
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
+    -- todo: figure out how to get this to work without specific version number
+    cmd = { idf_tools_path .. "/tools/esp-clang/esp-18.1.2_20240912/esp-clang/bin/clangd", "--background-index", "--query-driver=**", },
+    root_dir = function()
+        -- leave empty to stop nvim from cd'ing into ~/ due to global .clangd file
+    end
+  }
+
+else
+  -- clangd config
+  require'lspconfig'.clangd.setup{
+    -- cmd = { 'clangd', "--background-index", "--clang-tidy"},
+    on_attach = on_attach,
+    handlers = {
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      disable = { "cpp copyright" }
+    })}
   }
 end
+
 EOF

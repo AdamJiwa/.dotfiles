@@ -2,3 +2,7 @@
 .vimvixen-console-frame {
     color-scheme: light !important;
 }
+
+.AppHeader-context-item-label  {
+    color: black;
+}
