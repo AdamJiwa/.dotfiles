@@ -17,6 +17,8 @@ set undofile
 set incsearch
 set splitright
 set splitbelow
+" this is for alacritty on windows. not sure how it effects mac
+set notermguicolors
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -37,6 +39,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-dispatch'
+Plug 'seblyng/roslyn.nvim'
 
 call plug#end()
 
@@ -170,5 +173,25 @@ else
     })}
   }
 end
+
+require("roslyn").setup({
+    config = {
+        cmd = {
+            "dotnet",
+            "C:/tools/roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
+            "--logLevel=Information",
+            "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
+            "--stdio",
+        },
+        on_attach = on_attach,
+    },
+})
+
+-- require'lspconfig'.csharp_ls.setup{
+--     on_attach = on_attach
+-- }
+-- require'lspconfig'.omnisharp.setup{
+--     cmd = { "dotnet", "/Users/Jiwa/Downloads/omnisharp/OmniSharp.dll" }
+-- }
 
 EOF

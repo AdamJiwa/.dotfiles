@@ -1,0 +1,23 @@
+[terminal.shell]
+program = "pwsh"
+args = [
+    "-nologo",
+    "-noExit",
+# setting the title to something other then pwsh cause I don't like the way it looks
+    "-c \"$host.UI.RawUI.WindowTitle = \\\"Alacritty\\\"\"",
+    ]
+
+
+[font.normal]
+family = "Source Code Pro for Powerline"
+style = "Regular"
+
+[window]
+# decorations = "None"
+
+dynamic_title = true
+
+
+[general]
+working_directory = "C:/Users/leade"
+
